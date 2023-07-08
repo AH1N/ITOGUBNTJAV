@@ -1,0 +1,48 @@
+vboxsuper@UBUNTU:~$ cat 'Домашние животные'
+cat: 'Домашние животные': No such file or directory
+vboxsuper@UBUNTU:~$ cat > 'Домашние животные'
+Собака
+кошка
+хомяк^C
+vboxsuper@UBUNTU:~$ cat 'Вьючные животные'
+cat: 'Вьючные животные': No such file or directory
+vboxsuper@UBUNTU:~$ cat > 'Вьючные животные'
+Лошадь
+верблюд 
+Осёл
+^C
+vboxsuper@UBUNTU:~$ cat 'Домашние животные' 'Вьючные животные' > 'Друзья человека'
+
+vboxsuper@UBUNTU:~$ ls
+ app           Desktop   Documents   Music      Public   snap        Videos             'Домашние животные'
+ cfg-compose   docker    Downloads   Pictures   shared   Templates  'Вьючные животные'  'Друзья человека'
+vboxsuper@UBUNTU:~$ cat 'Друзья человека'
+Собака
+кошка
+Лошадь
+верблюд
+Осёл
+vboxsuper@UBUNTU:~$ mv 'Друзья человека' 'humanFriends'
+vboxsuper@UBUNTU:~$ ls
+ app           Desktop   Documents   humanFriends   Pictures   shared   Templates  'Вьючные животные'
+ cfg-compose   docker    Downloads   Music          Public     snap     Videos     'Домашние животные'
+vboxsuper@UBUNTU:~$ cat humanFriends
+Собака
+кошка
+Лошадь
+верблюд
+Осёл
+vboxsuper@UBUNTU:~$ mkdir newDirHumanFriends
+vboxsuper@UBUNTU:~$ ls
+ app           Desktop   Documents   humanFriends   newDirHumanFriends   Public   snap        Videos             'Домашние животные'
+ cfg-compose   docker    Downloads   Music          Pictures             shared   Templates  'Вьючные животные'
+vboxsuper@UBUNTU:~$ mv humanFriends newDirHumanFriends/
+vboxsuper@UBUNTU:~$ cd newDirHumanFriends/
+vboxsuper@UBUNTU:~/newDirHumanFriends$ ls
+humanFriends
+vboxsuper@UBUNTU:~/newDirHumanFriends$ 
+
+
+
+
+

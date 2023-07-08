@@ -1,0 +1,327 @@
+mysql -u root -p
+vboxsuper@UBUNTU:~$ sudo mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 8.0.33-0ubuntu0.22.04.2 (Ubuntu)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE Human_friends;
+Query OK, 1 row affected (0,02 sec)
+
+mysql> show database
+    -> ^C
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Human_friends      |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0,00 sec)
+mysql> USE Human_friends;
+Database changed
+mysql> CREATE TABLE `animals`( `id` Int NOT NULL AUTO_INCREMENT, `animal_name` Varchar(20) NOT NULL, PRIMARY KEY (`id`) );
+Query OK, 0 rows affected (0,03 sec)
+
+mysql> SHOW TABLES;
++-------------------------+
+| Tables_in_Human_friends |
++-------------------------+
+| animals                 |
++-------------------------+
+1 row in set (0,00 sec)
+mysql> CREATE TABLE `home_animal`(`id` Int NOT NULL AUTO_INCREMENT, `home_name` Varchar(20) NOT NULL,`livePlace` Varchar(20), `id_animal` Int, PRIMARY KEY (`id`));
+Query OK, 0 rows affected (0,02 sec)
+
+mysql> CREATE INDEX `animal_home` ON `home_animal` (`id_animal`);
+Query OK, 0 rows affected (0,02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE `cat`(`id` Int NOT NULL AUTO_INCREMENT, `cat_name` Varchar(30) NOT NULL, `date_birth` Date NOT NULL, 
+	`commands` Varchar(200), `color` Varchar(20), `id_home` Int, PRIMARY KEY (`id`));
+Query OK, 0 rows affected (0,01 sec)
+
+mysql> CREATE INDEX `home_cat` ON `cat` (`id_home`);
+Query OK, 0 rows affected (0,01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE `dog`( `id` Int NOT NULL AUTO_INCREMENT, `dog_name` Varchar(30) NOT NULL, `date_birth` Date NOT NULL,
+  `commands` Varchar(200), `color` Varchar(20), `id_home` Int, PRIMARY KEY (`id`));
+Query OK, 0 rows affected (0,03 sec)
+
+mysql> CREATE INDEX `home_dog` ON `dog` (`id_home`);
+Query OK, 0 rows affected (0,02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE `hamster`(`id` Int NOT NULL AUTO_INCREMENT, `hamster_name` Varchar(30) NOT NULL, `date_birth` Date NOT NULL,
+  `commands` Varchar(200), `color` Varchar(20), `id_home` Int, PRIMARY KEY (`id`));
+Query OK, 0 rows affected (0,01 sec)
+
+mysql> CREATE INDEX `home_hamster` ON `hamster` (`id_home`);
+Query OK, 0 rows affected (0,01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE `pack_animal`(`id` Int NOT NULL AUTO_INCREMENT, `pack_name` Varchar(20) NOT NULL, `livePlace` Varchar(20), 
+  `id_animal` Int, PRIMARY KEY (`id`));
+Query OK, 0 rows affected (0,01 sec)
+
+mysql> CREATE INDEX `animal_pack` ON `pack_animal` (`id_animal`);
+Query OK, 0 rows affected (0,01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE `camel`(`id` Int NOT NULL AUTO_INCREMENT, `name` Varchar(30) NOT NULL, `date_birth` Date NOT NULL,
+  `commands` Varchar(200), `color` Varchar(20), `id_pack` Int, PRIMARY KEY (`id`));
+Query OK, 0 rows affected (0,01 sec)
+
+mysql> CREATE INDEX `pack_camel` ON `camel` (`id_pack`);
+Query OK, 0 rows affected (0,02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE `horse`(`id` Int NOT NULL AUTO_INCREMENT, `name` Varchar(30) NOT NULL, `date_birth` Date NOT NULL,
+  `commands` Varchar(200), `color` Varchar(20), `id_pack` Int, PRIMARY KEY (`id`));
+Query OK, 0 rows affected (0,02 sec)
+
+mysql> CREATE INDEX `pack_horse` ON `horse` (`id_pack`);
+Query OK, 0 rows affected (0,02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE `mule`(`id` Int NOT NULL AUTO_INCREMENT, `name` Varchar(30) NOT NULL, `date_birth` Date NOT NULL,
+  `commands` Varchar(200), `color` Varchar(20), `id_pack` Int, PRIMARY KEY (`id`));
+Query OK, 0 rows affected (0,02 sec)
+
+mysql> CREATE INDEX `pack_mule` ON `mule` (`id_pack`);
+Query OK, 0 rows affected (0,02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW TABLES;
++-------------------------+
+| Tables_in_Human_friends |
++-------------------------+
+| animals                 |
+| camel                   |
+| cat                     |
+| dog                     |
+| hamster                 |
+| home_animal             |
+| horse                   |
+| mule                    |
+| pack_animal             |
++-------------------------+
+9 rows in set (0,00 sec)
+
+mysql> INSERT INTO cat (cat_name, date_birth, commands, color, id_home) VALUES  ('рыжик', '20-01-12', 'валяться', 'рыжий', 1),  ('снежок', '21-01-12', 'есть сметану', 'белый', 1),  ('черныш', '22-01-12', 'портить обои', 'черный', 1), ('туман', '23-01-12', 'прыгать из за угла', 'серый', 1);
+Query OK, 4 rows affected (0,01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM cat;
++----+--------------+------------+-----------------------------------+--------------+---------+
+| id | cat_name     | date_birth | commands                          | color        | id_home |
++----+--------------+------------+-----------------------------------+--------------+---------+
+|  5 | рыжик        | 2020-01-12 | валяться                          | рыжий        |       1 |
+|  6 | снежок       | 2021-01-12 | есть сметану                      | белый        |       1 |
+|  7 | рыжик        | 2020-01-12 | валяться                          | рыжий        |       1 |
+|  8 | снежок       | 2021-01-12 | есть сметану                      | белый        |       1 |
+|  9 | черныш       | 2022-01-12 | портить обои                      | черный       |       1 |
+| 10 | туман        | 2023-01-12 | прыгать из за угла                | серый        |       1 |
++----+--------------+------------+-----------------------------------+--------------+---------+
+6 rows in set (0,01 sec)
+
+mysql> INSERT INTO dog (dog_name, date_birth, commands, color, id_home) VALUES  ('Лайк', '20-01-12', 'Лаять', 'рыжий', 1),  ('Призрак', '21-01-12', 'апорт', 'белый', 1),  ('Дым', '22-01-12', 'дать лапу', 'черный', 1), ('Заяц', '23-01-12', 'место', 'серый', 1);
+Query OK, 4 rows affected (0,04 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM dog;
++----+----------------+------------+-------------------+--------------+---------+
+| id | dog_name       | date_birth | commands          | color        | id_home |
++----+----------------+------------+-------------------+--------------+---------+
+|  1 | Лайк           | 2020-01-12 | Лаять             | рыжий        |       1 |
+|  2 | Призрак        | 2021-01-12 | апорт             | белый        |       1 |
+|  3 | Дым            | 2022-01-12 | дать лапу         | черный       |       1 |
+|  4 | Заяц           | 2023-01-12 | место             | серый        |       1 |
++----+----------------+------------+-------------------+--------------+---------+
+4 rows in set (0,00 sec)
+
+mysql>  INSERT INTO hamster (hamster_name, date_birth, commands, color, id_home) VALUES  ('Шуршало', '20-01-12', '', 'рыжий', 1),  ('Щекастый', '21-01-12', 'есть орехи', 'белый', 1),  ('Бумажник', '22-01-12', 'рвать бумагу', 'черный', 1), ('Тень', '23-01-12', 'прятаться', 'серый', 1);
+Query OK, 4 rows affected (0,01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM hamster;
++----+------------------+------------+-------------------------+--------------+---------+
+| id | hamster_name     | date_birth | commands                | color        | id_home |
++----+------------------+------------+-------------------------+--------------+---------+
+|  1 | Шуршало          | 2020-01-12 |                         | рыжий        |       1 |
+|  2 | Щекастый         | 2021-01-12 | есть орехи              | белый        |       1 |
+|  3 | Бумажник         | 2022-01-12 | рвать бумагу            | черный       |       1 |
+|  4 | Тень             | 2023-01-12 | прятаться               | серый        |       1 |
++----+------------------+------------+-------------------------+--------------+---------+
+4 rows in set (0,00 sec)
+
+mysql> INSERT INTO horse (name, date_birth, commands, color, id_pack) VALUES  ('Молния', '20-01-12', 'галоп', 'яблоки', 1),  ('Ветер', '21-01-12', 'есть яблоки', 'белый', 1),  ('Ураган', '22-01-12', 'идти медленно', 'черный', 1), ('Шустрик', '23-01-12', 'прыгать через забор', 'серый', 1);
+Query OK, 4 rows affected (0,01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM horse;
++----+----------------+------------+--------------------------------------+--------------+---------+
+| id | name           | date_birth | commands                             | color        | id_pack |
++----+----------------+------------+--------------------------------------+--------------+---------+
+|  1 | Молния         | 2020-01-12 | галоп                                | яблоки       |       1 |
+|  2 | Ветер          | 2021-01-12 | есть яблоки                          | белый        |       1 |
+|  3 | Ураган         | 2022-01-12 | идти медленно                        | черный       |       1 |
+|  4 | Шустрик        | 2023-01-12 | прыгать через забор                  | серый        |       1 |
++----+----------------+------------+--------------------------------------+--------------+---------+
+4 rows in set (0,00 sec)
+
+mysql> INSERT INTO camel (name, date_birth, commands, color, id_pack) VALUES  ('Тягучка', '20-01-12', 'плеваться', 'жёлтый', 1),  ('Тянучка', '21-01-12', 'посадить на себя человека', 'жёлтый', 1),  ('Тяжеловоз', '22-01-12', 'идти приставными шагами', 'жёлтый', 1), ('Водяной', '23-01-12', 'Искать воду', 'жёлтый', 1);
+Query OK, 4 rows affected (0,01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM camel;
++----+--------------------+------------+-------------------------------------------------+--------------+---------+
+| id | name               | date_birth | commands                                        | color        | id_pack |
++----+--------------------+------------+-------------------------------------------------+--------------+---------+
+|  1 | Тягучка            | 2020-01-12 | плеваться                                       | жёлтый       |       1 |
+|  2 | Тянучка            | 2021-01-12 | посадить на себя человека                       | жёлтый       |       1 |
+|  3 | Тяжеловоз          | 2022-01-12 | идти приставными шагами                         | жёлтый       |       1 |
+|  4 | Водяной            | 2023-01-12 | Искать воду                                     | жёлтый       |       1 |
++----+--------------------+------------+-------------------------------------------------+--------------+---------+
+4 rows in set (0,01 sec)
+
+mysql> INSERT INTO mule (name, date_birth, commands, color, id_pack) VALUES  ('Упрямец', '20-01-12', 'Идти', 'серый', 1);
+Query OK, 1 row affected (0,00 sec)
+
+mysql> INSERT INTO mule (name, date_birth, commands, color, id_pack) VALUES ('Весельчак', '23-01-12', 'прыгать', 'серый', 1);
+Query OK, 1 row affected (0,01 sec)
+
+mysql> SELECT * FROM mule;
++----+--------------------+------------+----------------+------------+---------+
+| id | name               | date_birth | commands       | color      | id_pack |
++----+--------------------+------------+----------------+------------+---------+
+|  1 | Упрямец            | 2020-01-12 | Идти           | серый      |       1 |
+|  2 | Весельчак          | 2023-01-12 | прыгать        | серый      |       1 |
++----+--------------------+------------+----------------+------------+---------+
+2 rows in set (0,00 sec)
+
+
+mysql> DELETE FROM camel;
+Query OK, 4 rows affected (0,00 sec)
+
+mysql> SELECT * FROM camel;
+Empty set (0,00 sec)
+
+mysql> SELECT * FROM horse UNION SELECT * FROM mule;
++----+--------------------+------------+--------------------------------------+--------------+---------+
+| id | name               | date_birth | commands                             | color        | id_pack |
++----+--------------------+------------+--------------------------------------+--------------+---------+
+|  1 | Молния             | 2020-01-12 | галоп                                | яблоки       |       1 |
+|  2 | Ветер              | 2021-01-12 | есть яблоки                          | белый        |       1 |
+|  3 | Ураган             | 2022-01-12 | идти медленно                        | черный       |       1 |
+|  4 | Шустрик            | 2023-01-12 | прыгать через забор                  | серый        |       1 |
+|  1 | Упрямец            | 2020-01-12 | Идти                                 | серый        |       1 |
+|  2 | Весельчак          | 2023-01-12 | прыгать                              | серый        |       1 |
++----+--------------------+------------+--------------------------------------+--------------+---------+
+6 rows in set (0,03 sec)
+
+mysql> CREATE TABLE ypung_animal (`id` Int NOT NULL, `name` Varchar(30), `date_birth` Datetime,
+    ->   `commands` Varchar(200), `color` Varchar(20), `age` varchar(50));
+Query OK, 0 rows affected (0,01 sec)
+
+mysql> INSERT INTO ypung_animal (id, name, date_birth, commands, color, age)
+    -> SELECT id, cat_name, date_birth, commands, color,
+    -> CONCAT(CAST(TIMESTAMPDIFF(YEAR,date_birth, NOW()) AS CHAR), " лет ",
+    -> CAST(MOD(TIMESTAMPDIFF(MONTH, date_birth, NOW()), 12) AS CHAR), " мес. ") AS age
+    -> FROM cat
+    -> WHERE TIMESTAMPDIFF(MONTH, date_birth, NOW()) BETWEEN 12 AND 36;
+Query OK, 3 rows affected (0,01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO ypung_animal (id, name, date_birth, commands, color, age)
+    -> SELECT id, dog_name, date_birth, commands, color,
+    -> CONCAT(CAST(TIMESTAMPDIFF(YEAR,date_birth, NOW()) AS CHAR), " лет ",
+    -> CAST(MOD(TIMESTAMPDIFF(MONTH, date_birth, NOW()), 12) AS CHAR), " мес. ") AS age
+    -> FROM dog
+    -> WHERE TIMESTAMPDIFF(MONTH, date_birth, NOW()) BETWEEN 12 AND 36;
+Query OK, 2 rows affected (0,03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO ypung_animal (id, name, date_birth, commands, color, age)
+    -> SELECT id, name, date_birth, commands, color,
+    -> CONCAT(CAST(TIMESTAMPDIFF(YEAR,date_birth, NOW()) AS CHAR), " лет ",
+    -> CAST(MOD(TIMESTAMPDIFF(MONTH, date_birth, NOW()), 12) AS CHAR), " мес. ") AS age
+    -> FROM horse
+    -> WHERE TIMESTAMPDIFF(MONTH, date_birth, NOW()) BETWEEN 12 AND 36;
+Query OK, 2 rows affected (0,03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO ypung_animal (id, name, date_birth, commands, color, age)
+    -> SELECT id, name, date_birth, commands, color,
+    -> CONCAT(CAST(TIMESTAMPDIFF(YEAR,date_birth, NOW()) AS CHAR), " лет ",
+    -> CAST(MOD(TIMESTAMPDIFF(MONTH, date_birth, NOW()), 12) AS CHAR), " мес. ") AS age
+    -> FROM mule
+    -> WHERE TIMESTAMPDIFF(MONTH, date_birth, NOW()) BETWEEN 12 AND 36;
+Query OK, 0 rows affected (0,00 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+SELECT * FROM ypung_animal;
+
+mysql> SELECT * FROM ypung_animal;
++----+----------------+---------------------+---------------------------+--------------+---------------------+
+| id | name           | date_birth          | commands                  | color        | age                 |
++----+----------------+---------------------+---------------------------+--------------+---------------------+
+|  6 | снежок         | 2021-01-12 00:00:00 | есть сметану              | белый        | 2 лет 5 мес.        |
+|  8 | снежок         | 2021-01-12 00:00:00 | есть сметану              | белый        | 2 лет 5 мес.        |
+|  9 | черныш         | 2022-01-12 00:00:00 | портить обои              | черный       | 1 лет 5 мес.        |
+|  2 | Призрак        | 2021-01-12 00:00:00 | апорт                     | белый        | 2 лет 5 мес.        |
+|  3 | Дым            | 2022-01-12 00:00:00 | дать лапу                 | черный       | 1 лет 5 мес.        |
+|  2 | Ветер          | 2021-01-12 00:00:00 | есть яблоки               | белый        | 2 лет 5 мес.        |
+|  3 | Ураган         | 2022-01-12 00:00:00 | идти медленно             | черный       | 1 лет 5 мес.        |
++----+----------------+---------------------+---------------------------+--------------+---------------------+
+7 rows in set (0,00 sec)
+
+mysql> SELECT 'cat' AS `animal_type`, `id`, `cat_name` AS `name`, `date_birth`, `commands`, `color`, `id_home`, NULL AS `id_pack` FROM `cat`
+    -> UNION
+    -> SELECT 'dog' AS `animal_type`, `id`, `dog_name` AS `name`, `date_birth`, `commands`, `color`, `id_home`, NULL AS `id_pack` FROM `dog`
+    -> UNION
+    -> SELECT 'hamster' AS `animal_type`, `id`, `hamster_name` AS `name`, `date_birth`, `commands`, `color`, `id_home`, NULL AS `id_pack` FROM `hamster`
+    -> UNION
+    -> SELECT 'horse' AS `animal_type`, `id`, `name`, `date_birth`, `commands`, `color`, NULL AS `id_home`, `id_pack` FROM `horse`
+    -> UNION
+    -> SELECT 'mule' AS `animal_type`, `id`, `name`, `date_birth`, `commands`, `color`, NULL AS `id_home`, `id_pack` FROM `mule`;
++-------------+----+--------------------+------------+--------------------------------------+--------------+---------+---------+
+| animal_type | id | name               | date_birth | commands                             | color        | id_home | id_pack |
++-------------+----+--------------------+------------+--------------------------------------+--------------+---------+---------+
+| cat         |  5 | рыжик              | 2020-01-12 | валяться                             | рыжий        |       1 |    NULL |
+| cat         |  6 | снежок             | 2021-01-12 | есть сметану                         | белый        |       1 |    NULL |
+| cat         |  7 | рыжик              | 2020-01-12 | валяться                             | рыжий        |       1 |    NULL |
+| cat         |  8 | снежок             | 2021-01-12 | есть сметану                         | белый        |       1 |    NULL |
+| cat         |  9 | черныш             | 2022-01-12 | портить обои                         | черный       |       1 |    NULL |
+| cat         | 10 | туман              | 2023-01-12 | прыгать из за угла                   | серый        |       1 |    NULL |
+| dog         |  1 | Лайк               | 2020-01-12 | Лаять                                | рыжий        |       1 |    NULL |
+| dog         |  2 | Призрак            | 2021-01-12 | апорт                                | белый        |       1 |    NULL |
+| dog         |  3 | Дым                | 2022-01-12 | дать лапу                            | черный       |       1 |    NULL |
+| dog         |  4 | Заяц               | 2023-01-12 | место                                | серый        |       1 |    NULL |
+| hamster     |  1 | Шуршало            | 2020-01-12 |                                      | рыжий        |       1 |    NULL |
+| hamster     |  2 | Щекастый           | 2021-01-12 | есть орехи                           | белый        |       1 |    NULL |
+| hamster     |  3 | Бумажник           | 2022-01-12 | рвать бумагу                         | черный       |       1 |    NULL |
+| hamster     |  4 | Тень               | 2023-01-12 | прятаться                            | серый        |       1 |    NULL |
+| horse       |  1 | Молния             | 2020-01-12 | галоп                                | яблоки       |    NULL |       1 |
+| horse       |  2 | Ветер              | 2021-01-12 | есть яблоки                          | белый        |    NULL |       1 |
+| horse       |  3 | Ураган             | 2022-01-12 | идти медленно                        | черный       |    NULL |       1 |
+| horse       |  4 | Шустрик            | 2023-01-12 | прыгать через забор                  | серый        |    NULL |       1 |
+| mule        |  1 | Упрямец            | 2020-01-12 | Идти                                 | серый        |    NULL |       1 |
+| mule        |  2 | Весельчак          | 2023-01-12 | прыгать                              | серый        |    NULL |       1 |
++-------------+----+--------------------+------------+--------------------------------------+--------------+---------+---------+
+20 rows in set (0,00 sec)
+
