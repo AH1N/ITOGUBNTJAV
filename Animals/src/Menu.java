@@ -9,12 +9,8 @@ public class Menu {
                             """);
 
 
-        System.out.println("11111");
+        System.out.println("ГЛАВНОЕ МЕНЮ");
 
-
-        System.out.println("2222222");
-
-        System.out.println("333333333");
 
         switch (scan.nextLine()) {
             case "1" -> {
@@ -28,14 +24,16 @@ public class Menu {
                 System.out.println("Программа завершена.");
                 System.exit(0);
             }
-            case "3" -> {menuCommands(animalList, scan, count);}
+            case "3" -> {menuCommands(animalList, scan, count);
+                System.out.println("мы зашли в 3 пункт");
+            }
 
             default -> menu1(animalList, scan, count);
         }
 
     }
 
-    private static void menuAnimal(AnimalList animalList, Scanner scan,Counter count) {
+    public static void menuAnimal(AnimalList animalList, Scanner scan,Counter count) {
         System.out.println("""
                 ВВЕДИТЕ ТИП ЖИВОТНОГО
                 1 - КОШКА
@@ -96,31 +94,42 @@ public class Menu {
     }
 
     public static void menuCommands(AnimalList animalList, Scanner scan, Counter count) {
-        Animal animall = animalList.getAnimal(scan.nextInt());
+        System.out.println("СПИСОК ВСЕХ ЖИВОТНЫХ");
         animalList.printAnimalList();
-        animall.printAnimal();
         System.out.println("введите номер нужного животного ");
+        String inpt1 = scan.nextLine();
+        System.out.println(inpt1);
+        while(!(inpt1.matches("-?\\d+")) || Integer.parseInt(inpt1) > 2
+                || inpt1.toString() == "" || inpt1 == null || Integer.parseInt(inpt1) < 0){
+            System.out.println("ПОПРОБУЙТЕ ЕЩЁ РАЗОК");
+            inpt1 = scan.nextLine();
+        }
+        Animal animall;
+        animall = animalList.getAnimal(Integer.parseInt(inpt1));
+
         System.out.println("""
                 ВЫБЕРИТЕ ПУНКТ МЕНЮ
                 1 - обучить новым командам  2 - посмотреть список команд  3 - выйти в меню
-                
-                """);
 
-        switch (scan.nextLine()) {
+                """);
+        String inpt2 = scan.nextLine();
+
+
+        switch (inpt2) {
             case "1" -> {
-                System.out.println(animall.getName());
-                System.out.println("Нажмите Enter для продолжения...+");
-                scan.nextLine();
                 System.out.println("введите новую команду для   " + animall.getName());
-                animall.addCommand(scan.nextLine());
+                String newcommand = scan.nextLine();
+                animall.addCommand(newcommand);
                 animall.printCommands();
                 System.out.println("Нажмите Enter для продолжения...");
                 scan.nextLine();
                 menuCommands(animalList, scan, count);
             }
             case "2" -> {
+                animall.getName();
+                System.out.println(animall.commands.size() + "СТОЛЬКО КОМАНД");
                 animall.printCommands();
-                System.out.println("Нажмите Enter для продолжения...=");
+                System.out.println("Нажмите Enter для продолжения...");
                 scan.nextLine();
                 menuCommands(animalList, scan, count);
             }

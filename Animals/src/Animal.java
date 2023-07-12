@@ -5,7 +5,7 @@ import java.util.Scanner;
 public abstract class Animal {
     private String name;
     private String color;
-    private ArrayList<String> commands =  new ArrayList<>();
+    public ArrayList<String> commands = new ArrayList<>();
     private String dateBirth;
 
     public Animal(String name, String color, ArrayList<String> commands, String dateBirth){
@@ -27,8 +27,7 @@ public abstract class Animal {
 
     }
     public void printCommands(){
-        System.out.println("СПИСОК КОМАНД" + this.name);
-
+        System.out.println("СПИСОК КОМАНД  " + this.name);
         if (this.commands != null){
             for (String command : this.commands) {
                 System.out.println("команда->" + command);

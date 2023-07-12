@@ -5,6 +5,9 @@ public class AnimalList {
         this.animalList = new ArrayList<>();;
     }
 
+    public Integer getSize() {
+        return this.animalList.size();
+    }
     public void addInAnimalList(Animal animal){
         this.animalList.add(animal);
     }
